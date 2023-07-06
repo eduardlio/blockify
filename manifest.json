@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "bg-test",
+  "background": {
+    "scripts": ["background/index.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-scripts/index.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup/index.html"
+  },
+  "permissions": [
+    "webNavigation",
+    "storage"
+  ]
+}
