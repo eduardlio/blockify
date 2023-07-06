@@ -1,3 +1,2 @@
 renderer.registerClicks()
-renderer.loadItems().then(() => {
-})
+state.loadItems()

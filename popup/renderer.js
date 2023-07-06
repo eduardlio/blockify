@@ -1,34 +1,30 @@
-const renderer = ((storage, {ref, watch}) => {
+const renderer = ((Vue, state) => {
+  const { watch } = Vue
 
-  const items = ref([])
+  const {
+    items,
+    addItem,
+    removeItem
+  } = state
 
   watch(items, () => {
     showItems()
   })
-
-  async function loadItems() {
-    const sites = await storage.getSites()
-    items.value = sites
-  }
-  async function removeItem(site) {
-    await storage.removeSite(site)
-    items.value = items.value.filter((item) => item !== site);
-  }
-  async function addItem(siteName) {
-    await storage.addSite(siteName)
-    items.value = [...items.value, siteName]
-  }
 
   function registerClicks() {
     const inputItem = document.querySelector('#newItemInput')
     const inputButton = document.querySelector('#newItemButton')
     inputButton.onclick = async function () {
       const siteText = inputItem.value
-      if(siteText && siteText.length > 0) {
+      const valid = isValidSite(siteText)
+      if(valid) {
         await addItem(siteText)
         inputItem.value = ''
       }
     }
+  }
+  function isValidSite(site) {
+    return isValidUrl(site)
   }
 
   function showItems() {
@@ -63,8 +59,6 @@ const renderer = ((storage, {ref, watch}) => {
 
   return {
     showItems,
-    loadItems,
-    addItem,
     registerClicks
   }
-})(storageClient, Vue)
+})(Vue, state)
