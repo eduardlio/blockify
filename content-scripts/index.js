@@ -10,8 +10,10 @@ function messageListener(request, detail) {
 }
 
 function hideBlocker() {
-  const screen = document.getElementById('block__screen')
-  screen.style = 'display: none'
+  const screens = document.querySelectorAll('#block__screen')
+  screens.forEach(screen => [
+    screen.remove()
+  ])
 }
 
 function startCountdown(textElement, seconds, remindInMinutes) {
@@ -61,7 +63,8 @@ function showBlocker() {
   countdown.innerText = ''
   countdown.id = 'block__countdown'
   button.onclick = () => {
-    // todo: make this configurable
+    // TODO: make this configurable
+    // TODO: exponential backoff with cap
     startCountdown(countdown, 15, 15)
   }
 

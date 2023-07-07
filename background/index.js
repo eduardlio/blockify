@@ -9,7 +9,8 @@ async function handleListener(details) {
   const url = new URL(details.url)
   const siteHost = url.host || ''
   const block = blockedSites.includes(siteHost)
-  if(block) {
+  const isTopLevelFrame = details.parentFrameId === -1
+  if(block && isTopLevelFrame) {
     await sendBlockSiteMessage(details.tabId)
   }
 }
@@ -20,7 +21,6 @@ async function sendBlockSiteMessage(tabId) {
       tabId,
       { message: 'block' }
     )
-    console.log(response)
     return response
   } catch(err) {
     console.warn(err)
