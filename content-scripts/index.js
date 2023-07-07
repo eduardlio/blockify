@@ -9,12 +9,15 @@ function messageListener(request, detail) {
   }
 }
 
+let countdownTimer;
 function hideBlocker() {
   const screens = document.querySelectorAll('#block__screen')
   screens.forEach(screen => [
     screen.remove()
   ])
+  countdownTimer = undefined
 }
+
 
 function startCountdown(textElement, seconds, remindInMinutes) {
   let remaining = seconds
@@ -65,7 +68,10 @@ function showBlocker() {
   button.onclick = () => {
     // TODO: make this configurable
     // TODO: exponential backoff with cap
-    startCountdown(countdown, 15, 15)
+    if(!countdownTimer) {
+      countdownTimer = true
+      startCountdown(countdown, 15, 15)
+    }
   }
 
   wrapper.appendChild(text)
