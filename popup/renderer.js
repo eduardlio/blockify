@@ -23,6 +23,7 @@ const renderer = ((Vue, state) => {
       }
     }
   }
+
   function isValidSite(site) {
     return isValidUrl(site)
   }
@@ -44,9 +45,14 @@ const renderer = ((Vue, state) => {
 
       const removeX = document.createElement('button')
       removeX.innerText = 'x'
-      removeX.onclick = async () => {
-        await removeItem(site)
+      function onRemoveClick() {
+        const removal = setTimeout(async () => {
+          await removeItem(site)
+        }, 20 * 1000)
+        // TODO: add to a list of things being removed
+        // and provide a thing to cancel them
       }
+      removeX.onclick = onRemoveClick
       listItem.appendChild(removeX)
 
       return listItem

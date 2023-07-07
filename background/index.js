@@ -1,8 +1,5 @@
 browser.runtime.onInstalled.addListener(() => {
   console.log('installed')
-  browser.storage.local.set({
-    'blocked_sites': ['www.linkedin.com']
-  })
 })
 
 browser.webNavigation.onCompleted.addListener(handleListener)
