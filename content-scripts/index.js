@@ -60,7 +60,7 @@ function showBlocker() {
   text.innerText = 'App is blocked'
   text.id = 'block__text'
   const button = document.createElement('button')
-  button.innerText = 'ok'
+  button.innerText = 'unpause'
   button.id = 'block__button'
   const countdown = document.createElement('p')
   countdown.innerText = ''
@@ -70,7 +70,7 @@ function showBlocker() {
     // TODO: exponential backoff with cap
     if(!countdownTimer) {
       countdownTimer = true
-      startCountdown(countdown, 15, 15)
+      startCountdown(countdown, 15, 5)
     }
   }
 
