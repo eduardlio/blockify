@@ -4,7 +4,7 @@ This is an experimental project to see if i can figure out how extensions work i
 
 ## Context
 
-James Clear talks about the 4 Laws of Behaviour Change: Cue, Craving, Response, and Reward [[0]]. This extension aims to tackle the inversion of the 3rd law: Response.
+James Clear talks about the 4 Laws of Behaviour Change: Cue, Craving, Response, and Reward [[0]]. This extension aims to tackle the inversion of the 3rd law: Response by making mindless browsing suck.
 
 |**How to Create a Good Habit**||
 |---|---|
