@@ -1,6 +1,7 @@
-const state = ((storage, Vue) => {
+const state = ((useStorage, Vue) => {
   const { ref } = Vue
   const items = ref([])
+  const storage = useStorage('blocked_sites')
 
   async function loadItems() {
     const sites = await storage.getSites()
@@ -20,4 +21,4 @@ const state = ((storage, Vue) => {
     removeItem,
     addItem
   }
-})(storageClient, Vue)
+})(useStorage, Vue)

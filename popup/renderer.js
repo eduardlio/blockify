@@ -1,5 +1,6 @@
-const renderer = ((Vue, state) => {
+const renderer = ((Vue, state, urlHelpers) => {
   const { watch } = Vue
+  const { isValidUrl } = urlHelpers
 
   const {
     items,
@@ -16,16 +17,12 @@ const renderer = ((Vue, state) => {
     const inputButton = document.querySelector('#newItemButton')
     inputButton.onclick = async function () {
       const siteText = inputItem.value
-      const valid = isValidSite(siteText)
+      const valid = isValidUrl(siteText)
       if(valid) {
         await addItem(siteText)
         inputItem.value = ''
       }
     }
-  }
-
-  function isValidSite(site) {
-    return isValidUrl(site)
   }
 
   function showItems() {
@@ -67,4 +64,4 @@ const renderer = ((Vue, state) => {
     showItems,
     registerClicks
   }
-})(Vue, state)
+})(Vue, state, urlHelpers)

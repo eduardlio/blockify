@@ -1,5 +1,11 @@
-const storageClient = (() => {
-  const name = 'blocked_sites'
+/**
+ * @module useStorage
+ * @param {string} name browser storage key name
+ */
+const useStorage = ((name) => {
+  /**
+   * @returns {Promise<string[]>} an array containing blocked sites
+   */
   async function getSites() {
     try {
       const storage = await browser.storage.local.get()
@@ -10,6 +16,11 @@ const storageClient = (() => {
     }
   }
 
+  /**
+   * 
+   * @param {string} toRemove Site to remove from block list
+   * @returns {Promise<void>}
+   */
   async function removeSite(toRemove) {
     const sites = await getSites()
     if(sites.includes(toRemove)) {
@@ -17,6 +28,12 @@ const storageClient = (() => {
       await setSites(filtered)
     }
   }
+  
+  /**
+   * 
+   * @param {string} toAdd Site to add to blocked list. Should be a Fully Qualified Domain Name (not currently enforced)
+   * @returns {Promise<void>}
+   */
   async function addSite(toAdd) {
     const sites = await getSites()
     if(!sites.includes(toAdd)) {
@@ -24,6 +41,11 @@ const storageClient = (() => {
     }
   }
 
+  /**
+   * 
+   * @param {String[]} sites list of sites to set as 
+   * @returns {Promise<void>}
+   */
   async function setSites(sites) {
     await browser.storage.local.set({
       [name]: sites
@@ -35,4 +57,4 @@ const storageClient = (() => {
     removeSite,
     addSite
   }
-})()
+})
