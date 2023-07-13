@@ -46,16 +46,35 @@ const renderer = ((Vue, useBlockedSites, urlHelpers) => {
       listItem.innerText = site
       listItem.setAttribute('key', site)
 
+      let removing = false
       const removeX = document.createElement('button')
-      removeX.innerText = 'x'
+
+      function onCancelRemoveClick(interval) {
+        clearInterval(interval)
+        removing = false
+        removeX.innerText = 'x',
+        removeX.onclick = onRemoveClick
+      }
+
       function onRemoveClick() {
-        const removal = setTimeout(async () => {
-          await removeItem(site)
-        }, 20 * 1000)
+        removing = true
+        let counter = 20
+        removeX.innerText = `Cancel ${counter}s`
+        removeX.onclick = () => onCancelRemoveClick(interval)
+        const interval = setInterval(async () => {
+          if(counter > 1) {
+            counter--
+            removeX.innerText = `Cancel ${counter}s`
+          } else {
+            await removeItem(site)
+          }
+        }, 1000)
         // TODO: add to a list of things being removed
         // and provide a thing to cancel them
       }
-      removeX.onclick = onRemoveClick
+
+      removeX.innerText = 'x'
+      removeX.onclick = () => onRemoveClick()
       listItem.appendChild(removeX)
 
       return listItem
@@ -64,6 +83,7 @@ const renderer = ((Vue, useBlockedSites, urlHelpers) => {
       console.warn(err)
       return null
     }
+
   }
 
   return {
