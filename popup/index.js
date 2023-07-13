@@ -1,4 +1,3 @@
-const main = ((renderer, state) => {
-  renderer.registerClicks()
-  state.loadItems()
-})(renderer, state)
+const main = ((renderer) => {
+  renderer.mount()
+})(renderer)

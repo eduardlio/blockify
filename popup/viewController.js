@@ -1,16 +1,22 @@
-const renderer = ((Vue, state, urlHelpers) => {
+const renderer = ((Vue, useBlockedSites, urlHelpers) => {
   const { watch } = Vue
   const { isValidUrl } = urlHelpers
 
   const {
     items,
     addItem,
-    removeItem
-  } = state
+    removeItem,
+    loadItems
+  } = useBlockedSites()
 
   watch(items, () => {
     showItems()
   })
+
+  function mount() {
+    registerClicks()
+    loadItems()
+  }
 
   function registerClicks() {
     const inputItem = document.querySelector('#newItemInput')
@@ -61,7 +67,6 @@ const renderer = ((Vue, state, urlHelpers) => {
   }
 
   return {
-    showItems,
-    registerClicks
+    mount
   }
-})(Vue, state, urlHelpers)
+})(Vue, useBlockedSites, urlHelpers)

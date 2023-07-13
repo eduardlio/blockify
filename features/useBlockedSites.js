@@ -1,4 +1,4 @@
-const state = ((useStorage, Vue) => {
+const useBlockedSites = ((useStorage, Vue) => () => {
   const { ref } = Vue
   const items = ref([])
   const storage = useStorage('blocked_sites')
