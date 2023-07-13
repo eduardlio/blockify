@@ -1,5 +1,11 @@
 browser.runtime.onInstalled.addListener(() => {
   console.log('installed')
+  setSites([
+    'www.instagram.com',
+    'news.ycombinator.com',
+    'old.reddit.com',
+    'www.youtube.com',
+  ])
 })
 
 browser.webNavigation.onCompleted.addListener(handleListener)
@@ -36,4 +42,9 @@ async function getBlockedSites() {
     console.warn('error fetching blocked sites', err)
     return []
   }
+}
+async function setSites(sites, name = 'blocked_sites') {
+  await browser.storage.local.set({
+    [name]: sites
+  })
 }
