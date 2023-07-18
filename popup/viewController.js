@@ -24,7 +24,7 @@ const renderer = ((Vue, useBlockedSites, urlHelpers) => {
     inputButton.onclick = async function () {
       const siteText = inputItem.value
       const valid = isValidUrl(siteText)
-      if(valid) {
+      if(valid && !items.value.includes(siteText)) {
         await addItem(siteText)
         inputItem.value = ''
       }
