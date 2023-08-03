@@ -1,8 +1,8 @@
 /**
- * @module useStorage
+ * @module storageClient
  * @param {string} name browser storage key name
  */
-const useStorage = ((name) => {
+const storageClient = ((name) => {
   /**
    * @returns {Promise<string[]>} an array containing blocked sites
    */

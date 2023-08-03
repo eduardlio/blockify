@@ -1,18 +1,18 @@
-const useBlockedSites = ((useStorage, Vue) => () => {
+const useBlockedSites = ((storage, Vue) => () => {
   const { ref } = Vue
   const items = ref([])
-  const storage = useStorage('blocked_sites')
+  const collection = storage('blocked_sites')
 
   async function loadItems() {
-    const sites = await storage.getSites()
+    const sites = await collection.getSites()
     items.value = sites
   }
   async function removeItem(site) {
-    await storage.removeSite(site)
+    await collection.removeSite(site)
     items.value = items.value.filter((item) => item !== site);
   }
   async function addItem(siteName) {
-    await storage.addSite(siteName)
+    await collection.addSite(siteName)
     items.value = [...items.value, siteName]
   }
   return {
@@ -21,4 +21,4 @@ const useBlockedSites = ((useStorage, Vue) => () => {
     removeItem,
     addItem
   }
-})(useStorage, Vue)
+})(storageClient, Vue)
