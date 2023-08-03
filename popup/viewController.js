@@ -44,7 +44,7 @@ const renderer = ((Vue, useBlockedSites, urlHelpers) => {
     try {
       const listItem = document.createElement('li')
       listItem.innerText = site
-      listItem.setAttribute('key', site)
+      listItem.id = 'site-'+ site
 
       let removing = false
       const removeX = document.createElement('button')
